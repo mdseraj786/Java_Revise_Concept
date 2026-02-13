@@ -12,8 +12,7 @@ class TaskSubmissionSystem{
     static ConcurrentLinkedQueue<String> taskQueue = new ConcurrentLinkedQueue<>();
 
     public static void main(String[] args) {
-
-
+        
         Thread producer = new Thread(() -> {
             while (true) {
                 taskQueue.add("Task" + System.currentTimeMillis());
@@ -21,19 +20,21 @@ class TaskSubmissionSystem{
         });
 
         Thread consumer = new Thread(() -> {
-            String task = taskQueue.poll();
-            System.out.println("Processing: " + task);
+            while(true) {
+                String task = taskQueue.poll();
+                System.out.println("Processing: " + task);
+            }
         });
 
-        producer.start();;
-        consumer.start();;;;
+        producer.start();
+        consumer.start();
 
     }
 }
 
 class ConcurrentLinkedDequeDemo{
     public static void main(String[] args) {
-//         non-blocking, thread-safe double-ended queue
+//        non-blocking, thread-safe double-ended queue
 //        compare and swap method
 
         ConcurrentLinkedDeque<String> deque = new ConcurrentLinkedDeque<>();

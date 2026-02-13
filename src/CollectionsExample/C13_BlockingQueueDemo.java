@@ -131,7 +131,7 @@ class DelayQueueDemo {
 
         public DelayedTask(String taskName, long delay, TimeUnit unit) {
             this.taskName = taskName;
-            this.startTime = System.currentTimeMillis() + unit.toMicros(delay);
+            this.startTime = System.currentTimeMillis() + unit.toMillis(delay);
         }
 
         public String getTaskName() {
@@ -174,6 +174,7 @@ class DelayQueueDemo {
         queue.put(new DelayedTask("T4", 4, TimeUnit.SECONDS));
 
         while (!queue.isEmpty()) {
+            System.out.println("loop");
             DelayedTask task = queue.take(); // block until a task's delay has expired
             System.out.println("Executed : " + task.getTaskName() + " at " + System.currentTimeMillis());
         }
